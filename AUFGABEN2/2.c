@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-/* const int Zahl0 = 4; */
-/* const int Zahl1 = 7; */
-/* const int Zahl2 = 1; */
-/* const int Zahl3 = 1; */
+const int Zahl0 = 4;
+const int Zahl1 = 7;
+const int Zahl2 = 1;
+const int Zahl3 = 1;
 
 int main()
 {
@@ -19,27 +19,27 @@ int main()
 		switch (KorrekteStellen) {
                         
 		case 0:
-			if (Eingabe == 4)
+			if (Eingabe == Zahl0)
 				KorrekteStellen++;
 			else
 				KorrekteStellen = 0;
                         break;
 
 		case 1:
-			if (Eingabe == 7)
+			if (Eingabe == Zahl1)
 				KorrekteStellen++;
 			else
 				KorrekteStellen = 0;
 			break;
 		case 2:
-			if (Eingabe == 1)
+			if (Eingabe == Zahl2)
 				KorrekteStellen++;
 			else
 				KorrekteStellen = 0;
 			break;
 
 		case 3:
-			if (Eingabe == 1)
+			if (Eingabe == Zahl3)
 				KorrekteStellen++;
 			else
 				KorrekteStellen = 0;
