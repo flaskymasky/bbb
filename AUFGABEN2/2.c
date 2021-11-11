@@ -15,28 +15,41 @@ int main()
 	do {
 		printf("Deine Zahl bitte: ");
 		scanf("%d", &Eingabe);
-                
-		switch (Eingabe) {
+
+		switch (KorrekteStellen) {
                         
-		case 4:
-			KorrekteStellen++;
-			break;
-                        
-		case 7:
-			KorrekteStellen++;
-			break;
+		case 0:
+			if (Eingabe == 4)
+				KorrekteStellen++;
+			else
+				KorrekteStellen = 0;
+                        break;
+
 		case 1:
-                        
-			KorrekteStellen++;
+			if (Eingabe == 7)
+				KorrekteStellen++;
+			else
+				KorrekteStellen = 0;
+			break;
+		case 2:
+			if (Eingabe == 1)
+				KorrekteStellen++;
+			else
+				KorrekteStellen = 0;
 			break;
 
-                default:
-                        KorrekteStellen = 0;
+		case 3:
+			if (Eingabe == 1)
+				KorrekteStellen++;
+			else
+				KorrekteStellen = 0;
+                        break;
+
 		}
-                
+
 	} while (KorrekteStellen < 4);
-        
+
 	printf("Ok - das Schloss ist jetzt offen!\n");
-        
+
 	return 0;
 }
