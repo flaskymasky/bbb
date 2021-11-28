@@ -21,7 +21,8 @@ int main()
     int tipp_count = 0;
     int max_tipp_count = -1 * INT_MAX;
 
-    puts("");
+
+    printf("\nTipp: ( zb 1 2 3 4 5 6): ");
     for (size_t x = 0; x < ARR_SIZE(tipp); x++)
 	scanf("%d", &tipp[x]);
     puts("");
