@@ -39,6 +39,7 @@ int main()
                 numbers[y] = rnd;
 	}
 
+	    // Zaehle wie viele Richtige man hat zb 1 Richtige: 0, 2 Richtige: 99 ....
         for (size_t i = 0; i < ARR_SIZE(numbers); i++)
             for (size_t j = 0; j < ARR_SIZE(numbers); j++)
                 if (numbers[j] == tipp[i]) 
