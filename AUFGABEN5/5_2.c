@@ -44,16 +44,19 @@ int main()
 		numbers[y] = rnd;
 	}
 
+	    // zaehle wie viele Tipps bei der Zahlung hat man richtig
+	    // zb Tipp: 1 2 3 4 5 6 Zählung: 1 4 9 88 77 99 .... -> 2 Richtige ( 1 und 4 )
 	for (size_t i = 0; i < ARR_SIZE(numbers); i++)
 	    for (size_t j = 0; j < ARR_SIZE(numbers); j++)
 		if (numbers[j] == tipp[i]) {
 		    tipp_count++;
 		    break;
 		}
-
+	// bestimme den groeßten Tipp
 	if (tipp_count > max_tipp_count)
 	    max_tipp_count = tipp_count;
 
+	    // sortiere
 	qsort(numbers, sizeof(numbers) / sizeof(numbers[0]), sizeof(int),
 	      compare);
 
