@@ -26,6 +26,7 @@ int main()
 		//wenn Zahl schon exestiert erstelle eine neue und mache flag = 1
             for (size_t z = 0; z < ARR_SIZE(numbers); z++) {
                 if (numbers[z] == rnd) {
+			// gehe eine schleien iteration zurueck
                     y--;
                     flag = 1;
                     break;
