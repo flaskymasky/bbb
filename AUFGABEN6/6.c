@@ -12,7 +12,7 @@ void multiplication(int *, int *);
 void division(int *, int *);
 
 int ggt(int, int);
-int reduce(int *, int *);
+void reduce(int *, int *, int *);
 void print_fraction(int *, int *, int *, char);
 
 int isInteger(char *str)
@@ -85,9 +85,7 @@ void addition(int *frac1, int *result)
     frac1[0] /= d2;
     frac2[0] /= d1;
 
-    int gcd = ggt(result[0], result[1]);
-    result[0] /= gcd;
-    result[1] /= gcd;
+    reduce(frac1, frac2, result);
 
     print_fraction(frac1, frac2, result, '+');
 }
@@ -118,9 +116,7 @@ void subtraction(int *frac1, int *result)
     frac1[0] /= d2;
     frac2[0] /= d1;
 
-    int gcd = ggt(result[0], result[1]);
-    result[0] /= gcd;
-    result[1] /= gcd;
+    reduce(frac1, frac2, result);
 
     print_fraction(frac1, frac2, result, '-');
 }
@@ -134,9 +130,7 @@ void multiplication(int *frac1, int *result)
     result[0] = frac1[0] * frac2[0];
     result[1] = frac2[1] * frac2[1];
 
-    int gcd = ggt(result[0], result[1]);
-    result[0] /= gcd;
-    result[1] /= gcd;
+    reduce(frac1, frac2, result);
 
     print_fraction(frac1, frac2, result, '*');
 }
@@ -150,9 +144,7 @@ void division(int *frac1, int *result)
     result[0] = frac1[0] * frac2[1];
     result[1] = frac1[1] * frac2[0];
 
-    int gcd = ggt(result[0], result[1]);
-    result[0] /= gcd;
-    result[1] /= gcd;
+    reduce(frac1, frac2, result);
 
     print_fraction(frac1, frac2, result, '/');
 }
@@ -170,6 +162,13 @@ int ggt(int x, int y)
     }
 
     return x;
+}
+
+void reduce(int *frac1, int *frac2, int *result)
+{
+    int gcd = ggt(result[0], result[1]);
+    result[0] /= gcd;
+    result[1] /= gcd;
 }
 
 void print_fraction(int *frac1, int *frac2, int *result, char sign)
