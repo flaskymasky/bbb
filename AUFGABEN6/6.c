@@ -6,10 +6,10 @@ int isInteger(char *);
 int read_numerator(void);
 int read_denominator(void);
 
-void addition(int *, int *);
-void subtraction(int *, int *);
-void multiplication(int *, int *);
-void division(int *, int *);
+int addition(int *, int *);
+int subtraction(int *, int *);
+int multiplication(int *, int *);
+int division(int *, int *);
 
 int ggt(int, int);
 void reduce(int *, int *, int *);
@@ -17,205 +17,249 @@ void print_fraction(int *, int *, int *, char);
 
 int isInteger(char *str)
 {
-    int status = 1;
+	int status = 1;
 
-    for (size_t x = 0; x < strlen(str); x++)
-	if (!(48 <= str[x] && str[x] <= 57))
-	    status = 0;
+	for (size_t x = 0; x < strlen(str); x++)
+		if (!(48 <= str[x] && str[x] <= 57))
+			status = 0;
 
-    return status;
+	return status;
 }
 
 int read_numerator()
 {
-    printf("\nnumerator: ");
+	printf("\nnumerator: ");
 
-    char str[50];
-    scanf("%s", str);
+	char str[50];
+	scanf("%s", str);
 
-    if (isInteger(str))
-	return atoi(str);
-    else
-
-	return 0;
+	if (isInteger(str))
+		return atoi(str);
+	else
+		return -1;
 }
 
 int read_denominator()
 {
-    printf("\ndenominator ( not 0 ): ");
-
-    char str[50];
-    scanf("%s", str);
-
-    while (atoi(str) == 0) {
 	printf("\ndenominator ( not 0 ): ");
+
+	char str[50];
 	scanf("%s", str);
-    }
 
-    if (isInteger(str))
-	return atoi(str);
-    else
-	return 0;
+	if (isInteger(str)) {
+		while (atoi(str) == 0) {
+			printf("\ndenominator ( not 0 ): ");
+			scanf("%s", str);
+		}
+
+		return atoi(str);
+	}
+
+	return -1;
 }
 
-void addition(int *frac1, int *result)
+int addition(int *frac1, int *result)
 {
-    int d1, d2;
-    int temp;
-    int frac2[2];
+	int d1, d2;
+	int temp;
+	int frac2[2];
 
-    frac2[0] = read_numerator();
-    frac2[1] = read_denominator();
+	printf("\n2. Bruch: \n");
 
-    d1 = frac1[1];
-    d2 = frac2[1];
+	frac2[0] = read_numerator();
+	frac2[1] = read_denominator();
 
-    frac1[1] *= frac2[1];
-    frac1[0] *= frac2[1];
+	if (frac2[0] == -1 || frac2[1] == 1) {
+		puts("\nPlease enter a Number!!");
+		return -1;
+	}
 
-    frac2[1] *= d1;
-    frac2[0] *= d1;
+	d1 = frac1[1];
+	d2 = frac2[1];
 
-    result[0] = frac1[0] + frac2[0];
-    result[1] = frac1[1];
+	frac1[1] *= frac2[1];
+	frac1[0] *= frac2[1];
 
-    frac1[1] = d1;
-    frac2[1] = d2;
+	frac2[1] *= d1;
+	frac2[0] *= d1;
 
-    frac1[0] /= d2;
-    frac2[0] /= d1;
+	result[0] = frac1[0] + frac2[0];
+	result[1] = frac1[1];
 
-    reduce(frac1, frac2, result);
+	frac1[1] = d1;
+	frac2[1] = d2;
 
-    print_fraction(frac1, frac2, result, '+');
+	frac1[0] /= d2;
+	frac2[0] /= d1;
+
+	reduce(frac1, frac2, result);
+
+	print_fraction(frac1, frac2, result, '+');
 }
 
-void subtraction(int *frac1, int *result)
+int subtraction(int *frac1, int *result)
 {
-    int d1, d2;
-    int temp;
-    int frac2[2];
-    frac2[0] = read_numerator();
-    frac2[1] = read_denominator();
+	int d1, d2;
+	int temp;
+	int frac2[2];
+	frac2[0] = read_numerator();
+	frac2[1] = read_denominator();
 
-    d1 = frac1[1];
-    d2 = frac2[1];
+	if (frac2[0] == -1 || frac2[1] == 1) {
+		puts("\nPlease enter a Number!!");
+		return -1;
+	}
 
-    frac1[1] *= frac2[1];
-    frac1[0] *= frac2[1];
+	d1 = frac1[1];
+	d2 = frac2[1];
 
-    frac2[1] *= d1;
-    frac2[0] *= d1;
+	frac1[1] *= frac2[1];
+	frac1[0] *= frac2[1];
 
-    result[0] = frac1[0] - frac2[0];
-    result[1] = frac1[1];
+	frac2[1] *= d1;
+	frac2[0] *= d1;
 
-    frac1[1] = d1;
-    frac2[1] = d2;
+	result[0] = frac1[0] - frac2[0];
+	result[1] = frac1[1];
 
-    frac1[0] /= d2;
-    frac2[0] /= d1;
+	frac1[1] = d1;
+	frac2[1] = d2;
 
-    reduce(frac1, frac2, result);
+	frac1[0] /= d2;
+	frac2[0] /= d1;
 
-    print_fraction(frac1, frac2, result, '-');
+	reduce(frac1, frac2, result);
+
+	print_fraction(frac1, frac2, result, '-');
 }
 
-void multiplication(int *frac1, int *result)
+int multiplication(int *frac1, int *result)
 {
-    int frac2[2];
-    frac2[0] = read_numerator();
-    frac2[1] = read_denominator();
+	int frac2[2];
+	frac2[0] = read_numerator();
+	frac2[1] = read_denominator();
 
-    result[0] = frac1[0] * frac2[0];
-    result[1] = frac2[1] * frac2[1];
+	if (frac2[0] == -1 || frac2[1] == 1) {
+		puts("\nPlease enter a Number!!");
+		return -1;
+	}
 
-    reduce(frac1, frac2, result);
+	result[0] = frac1[0] * frac2[0];
+	result[1] = frac2[1] * frac2[1];
 
-    print_fraction(frac1, frac2, result, '*');
+	reduce(frac1, frac2, result);
+
+	print_fraction(frac1, frac2, result, '*');
 }
 
-void division(int *frac1, int *result)
+int division(int *frac1, int *result)
 {
-    int frac2[2];
-    frac2[0] = read_numerator();
-    frac2[1] = read_denominator();
+	int frac2[2];
+	frac2[0] = read_numerator();
+	frac2[1] = read_denominator();
 
-    result[0] = frac1[0] * frac2[1];
-    result[1] = frac1[1] * frac2[0];
+	if (frac2[0] == -1 || frac2[1] == 1) {
+		puts("\nPlease enter a Number!!");
+		return -1;
+	}
 
-    reduce(frac1, frac2, result);
+	result[0] = frac1[0] * frac2[1];
+	result[1] = frac1[1] * frac2[0];
 
-    print_fraction(frac1, frac2, result, '/');
+	reduce(frac1, frac2, result);
+
+	print_fraction(frac1, frac2, result, '/');
 }
 
 int ggt(int x, int y)
 {
-    if (x == 0)
-	return y;
+	if (x == 0)
+		return y;
 
-    while (y > 0) {
-	if (x > y)
-	    x -= y;
-	else
-	    y -= x;
-    }
+	while (y > 0) {
+		if (x > y)
+			x -= y;
+		else
+			y -= x;
+	}
 
-    return x;
+	return x;
 }
 
 void reduce(int *frac1, int *frac2, int *result)
 {
-    int gcd = ggt(result[0], result[1]);
-    result[0] /= gcd;
-    result[1] /= gcd;
+	int gcd = ggt(result[0], result[1]);
+	result[0] /= gcd;
+	result[1] /= gcd;
 }
 
 void print_fraction(int *frac1, int *frac2, int *result, char sign)
 {
-    printf("\n%d/%d %c %d/%d = %d/%d", frac1[0], frac1[1], sign, frac2[0],
-	   frac2[1], result[0], result[1]);
-    if (result[1] == 1)
-	printf(" = %d\n", result[0]);
+	printf("\n%d/%d %c %d/%d = %d/%d", frac1[0], frac1[1], sign, frac2[0],
+	       frac2[1], result[0], result[1]);
+	if (result[1] == 1)
+		printf(" = %d\n", result[0]);
 }
 
 int main()
 {
-    int fraction[2]; // fraction[0] is numerator, fraction[1] is denominator
-    int result[2]; // result will be saved here
-    char run = 'n'; // either ( a => exit, c => continue with result, n => new calculation )
-    char sign; // input operation + - * /
+	int fraction[2]; // fraction[0] is numerator, fraction[1] is denominator
+	int result[2]; // result will be saved here
+	char run =
+		'n'; // either ( a => exit, c => continue with result, n => new calculation )
+	char sign; // input operation + - * /
 
-    do {
-	if (run == 'n') {
-	    fraction[0] = read_numerator();
-	    fraction[1] = read_denominator();
-	} else
-	    memcpy(fraction, result, 2 * sizeof(int));
+	do {
+		if (run == 'n') {
+                        printf("\n###########################\n\n");
+			printf("\n1. Bruch: \n");
+			fraction[0] = read_numerator();
+			fraction[1] = read_denominator();
 
-	printf("\npress: \n\n+ ( Addition )\n- ( Substraction )\n* ( Multiplication)\n/ ( Division )\n: ");
-	scanf(" %c", &sign);
+			if (fraction[0] == -1 || fraction[1] == -1) {
+				puts("\nPlease enter a Number!!");
+				continue;
+			}
 
-	switch (sign) {
-	case '+':
-	    addition(fraction, result);
-	    break;
+		} else
+			memcpy(fraction, result, 2 * sizeof(int));
 
-	case '-':
-	    subtraction(fraction, result);
-	    break;
-	case '*':
-	    multiplication(fraction, result);
-	    break;
-	case '/':
-	    division(fraction, result);
-	    break;
-	}
+		printf("\npress: \n\n+ ( Addition )\n- ( Substraction )\n* ( Multiplication)\n/ ( Division )\n: ");
+		scanf(" %c", &sign);
 
-	printf("\n\nContinue ? \npress [ n ] for new\npress [ c ] for continue with result\npress [ a ] for exit\n\n");
-	scanf(" %c", &run);
+		int s;
+		switch (sign) {
+		case '+':
+			s = addition(fraction, result);
+			if (s == -1)
+				continue;
+			else
+				break;
 
-    } while (run != 'a');
+		case '-':
+			s = subtraction(fraction, result);
+			if (s == -1)
+				continue;
+			else
+				break;
+		case '*':
+			s = multiplication(fraction, result);
+			if (s == -1)
+				continue;
+			else
+				break;
+		case '/':
+			s = division(fraction, result);
+			if (s == -1)
+				continue;
+			else
+				break;
+		}
 
-    return 0;
+		printf("\n\nContinue ? \npress [ n ] for new\npress [ c ] for continue with result\npress [ a ] for exit\n\n");
+		scanf(" %c", &run);
+
+	} while (run != 'a');
+
+	return 0;
 }
