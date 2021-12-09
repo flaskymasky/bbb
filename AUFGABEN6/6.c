@@ -181,7 +181,7 @@ void print_fraction(int *frac1, int *frac2, int *result, char sign)
 
 int main()
 {
-    int fraction[2]; // fraction[0] is numerator, fraction[0] is denominator
+    int fraction[2]; // fraction[0] is numerator, fraction[1] is denominator
     int result[2]; // result will be saved here
     char run = 'n'; // continue the program yes or no ( enter fraction or a)
     char sign; // input operation + - * /
