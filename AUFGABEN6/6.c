@@ -183,7 +183,7 @@ int main()
 {
     int fraction[2]; // fraction[0] is numerator, fraction[1] is denominator
     int result[2]; // result will be saved here
-    char run = 'n'; // continue the program yes or no ( enter fraction or a)
+    char run = 'n'; // either ( a => exit, c => continue with result, n => new calculation )
     char sign; // input operation + - * /
 
     do {
